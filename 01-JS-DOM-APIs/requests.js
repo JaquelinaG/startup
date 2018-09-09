@@ -1,33 +1,50 @@
-// var xhr = new XMLHttpRequest();
+function getJoke(){
+    const jokeSpan = document.getElementById('joke');
+    const url = 'http://api.icndb.com/jokes/random';
 
-// function handler(){
-//     if (xhr.readyState === 4){
-//         if (xhr.status === 200){
-//             console.log(xhr.response);
-//         }
-//     }
-// }
+    fetch(url)
+        .then((resp) => resp.json())
+            .then(function(data){
+                let jokeResult = data.value.joke;               
+                jokeSpan.innerHTML = jokeResult;               
+            })
+        .catch((error) => console.log(error));
+}
 
-// xhr.open('GET', 'http://api.icndb.com/jokes/random', true);
-// xhr.onreadystatechange = handler;
-// xhr.send();
+function getES6Promise(config){
+    const url = config.url;
+    const elementId= config.elementId;
+    const color = config.color;
+
+    fetch(url)    
+    .catch((error) => changeColor(elementId, color));
+}
+
+function changeColor(elementId, newColor){
+    let element = document.getElementById(elementId);
+    element.color = newColor;    
+}
+
+function getRepositories(filter){    
+    let url = 'https://api.github.com/search/repositories?q=${filter}';
+    const ul = document.getElementById('repository');    
+
+    fetch(url)
+    .then((resp) => resp.json())
+    .then(function(data){
+        let items = data.items;
+        return items.map(function(item){
+            let li = createNode('li');
+            let span = createNode('span');
+
+            span.innerHTML = item.full_name;
+            li.appendChild(span);
+            ul.appendChild(li);
+        })
+    })
+    .catch((error) => console.log(error));
+}
+
 function createNode(element){
     return document.createElement(element);
 }
-
-const paragraph = document.getElementById('joke');
-const url = 'http://api.icndb.com/jokes/random';
-
-// fetch(url)
-//     .then((resp) => resp.json())
-//     .then(function(data){
-//         let jokeResult = data.results;
-//         return jokeResult.map(function(joke){         
-//             paragraph.innerHTML = '${joke.value.joke}';            
-//         })
-//     })
-//     .catch(function(error){
-//         console.log(error);
-//     });
-
-fetch(url).then(data => {return data.json()}).then(resp => {console.log(resp)});

@@ -87,7 +87,7 @@
   section {
     border-top: 1px solid #eee;
     text-align: center;
-    padding: 2rem 0;
+    padding: 2rem 0;    
   }
   
   section:first-of-type { border-top: none; }
@@ -156,6 +156,9 @@
   
   cite { color: #bbb; }
   
+  li{ font-size: 0.6rem}
+
+  .h2Repo{ text-align: center}
   /* Code
      ========================================================================== */
   
@@ -212,8 +215,7 @@
     display: block;
     font-size: 1rem;
     font-weight: 600;
-    padding: 0.7rem 1.5rem;
-    /* vertical-align: middle; */
+    padding: 0.7rem 1.5rem;    
     white-space: nowrap;
     /* float: left;
     align-self: center; */
