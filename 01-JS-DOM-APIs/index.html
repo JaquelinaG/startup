@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/html" href="node_modules/normalize.css">
     <link rel="stylesheet" href="styles.css">
-    
+
 </head>
 
 <body>
@@ -19,35 +19,37 @@
 
     <section>
         <div class="container">
-            <div class="row clearfix">            
-                <button class="button" onclick="getJoke()">Joke</button>                  
-                <article>                  
+            <div class="row clearfix">
+                <button class="button" onclick="getJoke()">Joke</button>
+                <article>
                     <span id="joke"></span>
-                </article>            
-            </div>  
-        </div>              
-    </section> 
+                </article>
+            </div>
+        </div>
+    </section>
 
-    <div id="tableData">
-
+    <div class="container">
+        <div class="row clearfix">
+            <div class="column half">
+                <div id="tableData">
+                </div>
+            </div>
+            <div class="column half">
+                <aside>
+                    <div class="column flow-opposite">
+                        <h2 class="row h2Repo">Repositories</h2>
+                        <div class="row clearfix">
+                            <input type="text" id="filterTxt" required>
+                            <button class="button" onclick="getRepositories(document.getElementById('filterTxt').value)">Search</button>
+                        </div>
+                        <ul id="repository">
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
     </div>
 
-    <aside> 
-        <div class="container">
-            <div class="row clearfix">           
-                <div class="column flow-opposite">                    
-                    <h2 class="row h2Repo">Repositories</h2>
-                    <div class="row clearfix">
-                        <input type="text" id="filterTxt" required>
-                        <button class="button" onclick="getRepositories(document.getElementById('filterTxt').value)">Search</button>
-                    </div>                
-                    <ul id="repository">                    
-                    </ul>                   
-                </div>        
-            </div>    
-        </div>        
-    </aside>    
-   
     <div class="container">
         <div class="row">
             <footer class="footer">
@@ -55,7 +57,7 @@
             </footer>
         </div>
     </div>
-    
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -67,7 +69,16 @@
     <script type="text/javascript" src="animation.js"></script>
     <script type="text/javascript" src="requests.js"></script>
 
-    <script>fadeIn(document.querySelector('.js-fade'))</script>
+    <script>
+        fadeIn(document.querySelector('.js-fade'));
+        const array = [
+            ['jaquelina', 36547892],
+            ['romina', 25479634],
+            ['melina', 31478965]
+        ];
+        document.getElementById('tableData').appendChild(createTable(array));
+    </script>
+
 </body>
 
 
