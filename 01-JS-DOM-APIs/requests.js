@@ -1,23 +1,78 @@
-function getJoke(){
+const getJoke = () => {
     const jokeSpan = document.getElementById('joke');
     const url = 'http://api.icndb.com/jokes/random';
 
     fetch(url)
-        .then((resp) => resp.json())
-            .then(function(data){
-                let jokeResult = data.value.joke;               
-                jokeSpan.innerHTML = jokeResult;               
-            })
-        .catch((error) => console.log(error));
+    .then((resp) => resp.json())
+        .then(function(data){
+            let jokeResult = data.value.joke;               
+            jokeSpan.innerHTML = jokeResult;               
+        })
+    .catch((error) => console.log(error));
 }
 
-function getES6Promise(config){
-    const url = config.url;
-    const elementId= config.elementId;
-    const color = config.color;
+const getResponse = (config) => {
+    let url = config.url;
+    let method = config.method;    
+    let parameter = config.parameter;
+    if(parameter != ''){
+        url = `${url}?${parameter}`;        
+    }
+    
+    return fetch(url)
+    .then((resp) => {
+        if(resp.status >= 200 && resp.status < 300){
+            return Promise.resolve(resp);
+        }
+        else{
+            return Promise.reject(new Error(resp.statusText));
+        }
+    } )
+    .then((resp) => resp.json())    
+    .catch((error) => console.log(error));
+}
 
-    fetch(url)    
-    .catch((error) => changeColor(elementId, color));
+const getResponsePOST = () => {
+    const url = 'https://api.github.com/search/repositories';
+    //let url = config.url;
+    let method = config.method;    
+    let parameter = config.parameter;
+    
+    let requestInit = {
+        method: 'post',
+        headers: {
+          "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: 'q =JavaScript'
+      };
+    
+    return fetch(url, requestInit)
+    .then((resp) => {
+        if(resp.status >= 200 && resp.status < 300){
+            return Promise.resolve(resp);
+        }
+        else{
+            return Promise.reject(new Error(resp.statusText));
+        }
+    } )
+    .then((resp) => resp.json())    
+    .catch((error) => console.log(error));
+}
+
+const getJokes = () => {
+    const jokeSpan = document.getElementById('joke');
+    const config = {
+        url : 'http://api.icndb.com/jokes/random',
+        method : 'get',
+        parameter: ''
+    };
+        
+    getResponse(config)    
+    .then(function(data){
+        let jokeResult = data.value.joke;               
+        jokeSpan.innerHTML = jokeResult;               
+    })
+    .catch((error) => console.log(error));
 }
 
 function changeColor(elementId, newColor){
@@ -25,30 +80,41 @@ function changeColor(elementId, newColor){
     element.color = newColor;    
 }
 
-function getRepositories(filter){    
-    let url = `https://api.github.com/search/repositories?q=${filter}`;
+function getRepositories(filter){        
     const ul = document.getElementById('repository');    
+    if(filter != ''){
+        const config = {
+            url: 'https://api.github.com/search/repositories',
+            method: 'get',
+            parameter: `q=${filter}`
+        };
 
-    fetch(url)
-    .then((resp) => resp.json())
-    .then(function(data){
-        let items = data.items;
-        return items.map(function(item){
-            let li = createNode('li');
-            let span = createNode('span');
+        getResponse(config)
+        //.then((resp) => resp.json())
+        .then(function(data){
+            let items = data.items;
+            return items.map(function(item){
+                let li = createNode('li');
+                let span = createNode('span');
 
-            span.innerHTML = item.full_name;
-            li.appendChild(span);
-            ul.appendChild(li);
+                span.innerHTML = item.full_name;
+                li.appendChild(span);
+                ul.appendChild(li);
+            })
         })
-    })
-    .catch((error) => console.log(error));
+        .catch((error) => console.log(error));
+    }
+    else{
+        alert('You must enter a word');
+    }    
 }
 
 function createNode(element){
     return document.createElement(element);
 }
 
-function clearTable(){
+const clearList = (ulId) => {
+    let ul = document.getElementById(ulId);
     
+    while(ul.firstChild) ul.removeChild(ul.firstChild);
 }

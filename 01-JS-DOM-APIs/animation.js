@@ -1,12 +1,10 @@
-const fadeIn= elem =>{
+const fadeIn = (elem) =>{
     if (elem.classList.contains('is-paused')){
         elem.classList.remove('is-paused');
     }
 }
 
-function showAlert(){
-    alert('You clicked me!');
-}
+const showAlert = () => { alert('You clicked me!');}
 
 function createTable(array){
     let table = createNode('table');

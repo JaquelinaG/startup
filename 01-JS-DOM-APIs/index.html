@@ -20,7 +20,7 @@
     <section>
         <div class="container">
             <div class="row clearfix">
-                <button class="button" onclick="getJoke()">Joke</button>
+                <button class="button" onclick="getJokes()">Joke</button>
                 <article>
                     <span id="joke"></span>
                 </article>
@@ -43,13 +43,12 @@
                         </div>
                         <div class="row clearfix">
                             <button class="button" onclick="getRepositories(document.getElementById('filterTxt').value)">Search</button>
-                            <button class="button" onclick="clearTable()">Clear</button> 
+                            <button class="button" onclick="clearList('repository')">Clear</button> 
                         </div>
                         <div>
                             <ul id="repository">
                             </ul>
-                        </div>
-                        
+                        </div>                        
                     </div>
                 </aside>
             </div>
@@ -78,6 +77,5 @@
     </script>
 
 </body>
-
 
 </html>
