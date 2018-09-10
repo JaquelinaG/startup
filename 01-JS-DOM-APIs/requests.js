@@ -48,3 +48,7 @@ function getRepositories(filter){
 function createNode(element){
     return document.createElement(element);
 }
+
+function clearTable(){
+    
+}
