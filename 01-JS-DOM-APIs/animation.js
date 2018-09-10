@@ -41,17 +41,6 @@ function createTable(array){
     table.appendChild(tableBody);
     
     return table;
-
-    // let items = data.items;
-    //     return items.map(function(item){
-    //         let li = createNode('li');
-    //         let span = createNode('span');
-
-    //         span.innerHTML = item.full_name;
-    //         li.appendChild(span);
-    //         ul.appendChild(li);
-    //     })
-
 }
 
 function createNode(element){
