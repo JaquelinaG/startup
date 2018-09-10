@@ -35,16 +35,19 @@ const getResponse = (config) => {
 const getResponsePOST = () => {
     const url = 'https://api.github.com/search/repositories';
     //let url = config.url;
-    let method = config.method;    
-    let parameter = config.parameter;
+    // let method = config.method;    
+    // let parameter = config.parameter;
     
     let requestInit = {
-        method: 'post',
+        method: 'POST',
         headers: {
           "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
-        body: 'q =JavaScript'
-      };
+        body: queryString.stringify({q:'Javascript'})
+        // JSON.stringify({
+        //     q: 'Javascript'
+        //})
+    };
     
     return fetch(url, requestInit)
     .then((resp) => {
@@ -55,7 +58,8 @@ const getResponsePOST = () => {
             return Promise.reject(new Error(resp.statusText));
         }
     } )
-    .then((resp) => resp.json())    
+    .then((resp) => resp.json())
+    .then((data) => console.log(data))    
     .catch((error) => console.log(error));
 }
 
