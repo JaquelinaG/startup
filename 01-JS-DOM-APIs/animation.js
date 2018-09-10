@@ -30,9 +30,10 @@ function createTable(array){
     }
 
     let trHead = createNode('tr');
-    for(let c = 0; c < columns.length; c ++){
-        let th = document.createNode('th');
-        let value = createTextNode('Column');
+    for(let c = 0; c < columns; c++){
+        let th = createNode('th');
+        let col = `Column${c}`; 
+        let value = document.createTextNode(col);
         th.appendChild(value);
         trHead.appendChild(th);        
     }

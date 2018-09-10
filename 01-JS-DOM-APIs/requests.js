@@ -26,7 +26,7 @@ function changeColor(elementId, newColor){
 }
 
 function getRepositories(filter){    
-    let url = 'https://api.github.com/search/repositories?q=${filter}';
+    let url = `https://api.github.com/search/repositories?q=${filter}`;
     const ul = document.getElementById('repository');    
 
     fetch(url)
