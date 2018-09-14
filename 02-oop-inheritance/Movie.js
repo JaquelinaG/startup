@@ -30,7 +30,8 @@ class Movie {
     }
 
     addCast(casting){        
-        return this.cast.push(casting);
+        casting.array.forEach(element => {this.cast.push(element)
+        });
     }
 }
 
