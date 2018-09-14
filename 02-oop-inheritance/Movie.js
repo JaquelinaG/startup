@@ -1,23 +1,56 @@
-class Movie{
+// import {EventEmitter} from "EventEmitter.js";
+// extends EventEmitter
+
+class Movie {
     constructor(name, year, duration){
         this.title = name;
         this.year = year;
-        this.duration = duration;
+        this.duration = duration;   
+        this.cast = [];     
     }
 
+    // set cast(cast){
+    //     this.cast = cast;
+    // }
+
     play(){
-        console.log(`I am playing the movie: ${this.title}`);
+        let actors = this.cast.map(a => a.name); 
+        let actorsString = actors.join(' , ');       
+        console.log(`I am playing the movie: ${this.title} with Actors: ${actors[0]}`);
+        console.log(actors.length);
+        console.log(actorsString.length);
     }
 
     pause(){
         console.log(`I am pausing the movie: ${this.title}`);
     }
 
-    resumen(){
+    resume(){
         console.log(`I am resuming the movie: ${this.title}`);
+    }
+
+    addCast(casting){        
+        return this.cast.push(casting);
     }
 }
 
+class Actor{
+    constructor(name, age){
+        this.name = name;
+        this.age = age;
+    }
+}
 
-var movie1 = new Movie('Hola', 2015, 125);
-movie1.play();
+const terminator = new Movie('Terminator I', 1985, 60);
+const arnold = new Actor('Arnold Schwarzenegger', 50);
+const actors = [
+    new Actor('Paul Winfield', 50),
+    new Actor('Michael Biehn', 50),
+    new Actor('Linda Hamilton', 50)
+];
+
+//terminator.addCast(arnold);
+terminator.addCast(actors);
+console.log(terminator.cast);
+//terminator.play();
+console.log(terminator.cast[0]);

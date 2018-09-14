@@ -1,4 +1,5 @@
 // import {movie} from './movie.js' ;
 
-// let movie = new movie('Hola', 2015, 125)
-// movie.play();
+
+// var movie1 = new Movie('Hola', 2015, 125);
+// movie1.play();
