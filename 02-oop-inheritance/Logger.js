@@ -1,8 +1,8 @@
-class Logger{
+export class Logger{
     constructor(){        
     }
 
     log(info){
-        console.log('info');
+        console.log(`${info}`);
     }
 }
