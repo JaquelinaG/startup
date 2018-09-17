@@ -29,9 +29,17 @@ class Movie {
         console.log(`I am resuming the movie: ${this.title}`);
     }
 
-    addCast(casting){        
-        casting.array.forEach(element => {this.cast.push(element)
-        });
+    addCast(casting){              
+        casting.forEach(element => {this.cast.push(element)
+        });   
+
+        // function mixin(receiver, supplier) {
+        //     Object.keys(supplier).forEach(function(key) {
+        //         receiver[key] = supplier[key];
+        //     });
+        
+        //     return receiver;
+        // }
     }
 }
 
@@ -51,7 +59,57 @@ const actors = [
 ];
 
 //terminator.addCast(arnold);
-terminator.addCast(actors);
-console.log(terminator.cast);
-//terminator.play();
-console.log(terminator.cast[0]);
+// terminator.addCast(actors);
+// console.log(terminator.cast);
+// console.log(terminator.cast[0]);
+
+class Logger{
+    constructor(){        
+    }
+
+    log(info){
+        console.log('info');
+    }
+}
+
+//Mixin
+var social = {
+    share(friendName, movieName){
+        console.log(`${friendName} shares movie: ${movieName}`)
+    },
+    like(friendName, movieName){
+        console.log(`${friendName} likes movie: ${movieName}`)
+    }
+};
+
+Object.assign(terminator, social);
+terminator.share('Jaqui', `${terminator.title}`);
+terminator.like('Cross', `${terminator.title}`);
+
+
+// Object.assign(receiver,
+//     {
+//         type: "js",
+//         name: "file.js"
+//     },
+//     {
+//         type: "css"
+//     }
+// );
+
+// console.log(receiver.type);     // "css"
+// console.log(receiver.name);
+
+// function EventTarget() { /*...*/ }
+// EventTarget.prototype = {
+//     constructor: EventTarget,
+//     emit: function() { /*...*/ },
+//     on: function() { /*...*/ }
+// };
+
+// var myObject = {};
+// mixin(myObject, EventTarget.prototype);
+
+// myObject.emit("somethingChanged");
+
+

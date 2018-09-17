@@ -2,10 +2,12 @@ export class EventEmitter{
     constructor(eventName, callback){
         this.eventName = eventName;
         this.callback = callback;
+        this.dictionary = [,]
     }
 
     on(eventName, callback){
-
+        // let listener = this.dictionary.filter(e => e.eventName === eventName);
+        // let event = listener.event;       
 
     }
 
