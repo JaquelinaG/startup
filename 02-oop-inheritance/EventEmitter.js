@@ -1,7 +1,5 @@
 export class EventEmitter{
-    constructor(eventName, callback){
-        this.eventName = eventName;
-        this.callback = callback;
+    constructor(){        
     }
 
     on(eventName, callback){

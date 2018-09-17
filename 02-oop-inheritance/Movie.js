@@ -1,6 +1,7 @@
-// import {EventEmitter} from "EventEmitter.js";
-// extends EventEmitter
+// import {EventEmitter} from "./EventEmitter.js";
+// import {Actor} from "./Actor.js"; 
 
+//extends EventEmitter
 class Movie {
     constructor(name, year, duration){
         this.title = name;
@@ -55,3 +56,5 @@ terminator.addCast(actors);
 console.log(terminator.cast);
 //terminator.play();
 console.log(terminator.cast[0]);
+
+
