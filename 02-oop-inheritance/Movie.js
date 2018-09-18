@@ -2,17 +2,41 @@
 // import {Actor} from "./Actor.js"; 
 
 //extends EventEmitter
-class Movie {
-    constructor(name, year, duration){
+class EventEmitter{
+    constructor(){      
+        this.dictionary = []
+    }
+
+    on(eventName, callback){
+        this.dictionary.push({eventName: eventName, callback: callback});
+    }
+
+    emit(eventName){
+        this.dictionary.forEach(element => {
+            if (eventName === element.eventName){
+                element.callback();
+            }
+        });
+    }
+
+    off(eventName, callback){
+        for (let index = this.dictionary.length; index < 1; index--) {
+            const element = this.dictionary[index];
+            if (element[0] === eventName && element[1] === callback) {
+                this.dictionary.splice(index, 1);
+            }           
+        }
+    }
+}
+
+class Movie extends EventEmitter {
+    constructor(name, year, duration) {
+        super();
         this.title = name;
         this.year = year;
         this.duration = duration;   
         this.cast = [];     
     }
-
-    // set cast(cast){
-    //     this.cast = cast;
-    // }
 
     play(){
         let actors = this.cast.map(a => a.name); 
@@ -20,27 +44,22 @@ class Movie {
         console.log(`I am playing the movie: ${this.title} with Actors: ${actors[0]}`);
         console.log(actors.length);
         console.log(actorsString.length);
+        this.emit('play');
     }
 
     pause(){
         console.log(`I am pausing the movie: ${this.title}`);
+        this.emit('pause');
     }
 
     resume(){
         console.log(`I am resuming the movie: ${this.title}`);
+        this.emit('resume');
     }
 
     addCast(casting){              
         casting.forEach(element => {this.cast.push(element)
         });   
-
-        // function mixin(receiver, supplier) {
-        //     Object.keys(supplier).forEach(function(key) {
-        //         receiver[key] = supplier[key];
-        //     });
-        
-        //     return receiver;
-        // }
     }
 }
 
@@ -64,6 +83,7 @@ const actors = [
 // console.log(terminator.cast);
 // console.log(terminator.cast[0]);
 
+//Logger
 class Logger{
     constructor(){        
     }
@@ -72,6 +92,9 @@ class Logger{
         console.log('info');
     }
 }
+
+var logger = new Logger();
+
 
 //Mixin
 var social = {
@@ -87,7 +110,8 @@ Object.assign(terminator, social);
 terminator.share('Jaqui', `${terminator.title}`);
 terminator.like('Cross', `${terminator.title}`);
 
-
+terminator.on('play', function() { console.log('play captured!'); });
+terminator.play('play');
 // Object.assign(receiver,
 //     {
 //         type: "js",
@@ -112,5 +136,4 @@ terminator.like('Cross', `${terminator.title}`);
 // mixin(myObject, EventTarget.prototype);
 
 // myObject.emit("somethingChanged");
-
 
