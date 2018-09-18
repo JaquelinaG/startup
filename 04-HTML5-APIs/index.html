@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HTML5 APIs</title>
+
+    <link rel="stylesheet" type="text/html" href="node_modules/normalize.css">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+    <header>
+        <h1>HTML5 APIs</h1>
+    </header>
+
+    <section>
+        <div class="container">
+            <div class="row clearfix">
+                <textarea id="txtArea"></textarea>
+                <button class="button" onclick="saveLocal(document.getElementById('txtArea').value)">Save</button>                
+                <button class="button" onclick="clearLocal('txtArea')">Clear</button>
+                <button class="button" onclick="saveDb()">Save DB</button>
+                                
+                <article>
+                    <span id="textSaved"></span>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="row clearfix">
+            <div class="column half">
+                <div id="tableData">
+                </div>
+            </div>
+            <div class="column half">
+                <aside>
+                    <div class="column flow-opposite">
+                        <h2 class="row clearfix h2Repo">Repositories</h2>
+                        <div class="row clearfix">
+                            <input type="text" id="filterTxt" required>                                                       
+                        </div>
+                        <div class="row clearfix">
+                            <button class="button" onclick="getRepositories(document.getElementById('filterTxt').value)">Search</button>
+                            <button class="button" onclick="clearList('repository')">Clear</button> 
+                        </div>
+                        <div>
+                            <ul id="repository">
+                            </ul>
+                        </div>                        
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <footer class="footer">
+                Web UI BootCamp Globant 2018
+            </footer>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="storage.js"></script>
+    <!-- <script type="text/javascript" src="requests.js"></script> -->
+
+    <script>
+        // fadeIn(document.querySelector('.js-fade'));
+        // const array = [
+        //     ['jaquelina', 36547892],
+        //     ['romina', 25479634],
+        //     ['melina', 31478965]
+        // ];
+        // document.getElementById('tableData').appendChild(createTable(array));        
+    </script>
+
+</body>
+
+</html>
