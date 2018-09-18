@@ -1,16 +1,16 @@
 export class EventEmitter{
     constructor(){      
-        this.dictionary = [,]
+        this.dictionary = []
     }
 
     on(eventName, callback){
-        this.dictionary.push(eventName, callback);
+        this.dictionary.push({eventName: eventName, callback: callback});
     }
 
     emit(eventName){
         this.dictionary.forEach(element => {
-            if (eventName === element[0]){
-                element[1]();
+            if (eventName === element.eventName){
+                element.callback();
             }
         });
     }
@@ -23,10 +23,4 @@ export class EventEmitter{
             }           
         }
     }
-    // The on method will receive a eventName and a callback or listener that will be executed each 
-    //time a that event is triggered.
-
-// The emit method will trigger events to be consumed by other functions or objects.
-
-// The off method will delete previously defined event listeners.
 }
