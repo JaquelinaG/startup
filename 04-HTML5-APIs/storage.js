@@ -20,7 +20,7 @@ const saveDb = () => {
     }
     else{
         const dbName = 'APIDatabase';
-        var request = window.indexedDB.open(dbName, 1);
+        var request = window.indexedDB.open(dbName);
         
         const customerData = [
             { ssn: "444-44-4444", name: "Bill", age: 35, email: "bill@company.com" },
@@ -28,29 +28,32 @@ const saveDb = () => {
           ];
 
         request.onerror = (event) => {console.log(`${request.errorCode}`)};
-
-        // request.onupgradeneeded = function(event) {
-        //     var db = event.target.result;
-          
-        //     // Create an objectStore to hold information about our customers.
-        //     var objectStore = db.createObjectStore("customers", { keyPath: "ssn" });
-          
-        //     // Create an index to search customers by name. We may have duplicates.
-        //     objectStore.createIndex("name", "name", { unique: false });
-          
-        //     // Create an index to search customers by email. Unique index.
-        //     objectStore.createIndex("email", "email", { unique: true });
-          
-        //     // Use transaction oncomplete to make sure the objectStore creation is 
-        //     // finished before adding data into it.
-        //     objectStore.transaction.oncomplete = function(event) {
-        //       // Store values in the newly created objectStore.
-        //       var customerObjectStore = db.transaction("customers", "readwrite").objectStore("customers");
-        //       customerData.forEach(function(customer) {
-        //         customerObjectStore.add(customer);
-        //       });
-        //     };
+        // request.onsuccess = function(event) {
+        //     db = event.target.result;
         //   };
+        
+        request.onupgradeneeded = function(event) {
+            var db = event.target.result;
+          
+            // Create an objectStore to hold information about our customers.
+            var objectStore = db.createObjectStore("customers", { keyPath: "ssn" });
+          
+            // Create an index to search customers by name. We may have duplicates.
+            objectStore.createIndex("name", "name", { unique: false });
+          
+            // Create an index to search customers by email. Unique index.
+            objectStore.createIndex("email", "email", { unique: true });
+          
+            // Use transaction oncomplete to make sure the objectStore creation is 
+            // finished before adding data into it.
+            objectStore.transaction.oncomplete = function(event) {
+              // Store values in the newly created objectStore.
+              var customerObjectStore = db.transaction("customers", "readwrite").objectStore("customers");
+              customerData.forEach(function(customer) {
+                customerObjectStore.add(customer);
+              });
+            };
+          };
 
         //Otra forma:
         // request.onsuccess = function(event){
