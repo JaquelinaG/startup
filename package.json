@@ -1,0 +1,9 @@
+{
+    "devDependencies": {
+        "@babel/cli": "^7.0.0",
+        "@babel/core": "^7.0.1"
+    },
+    "dependencies": {
+        "normalize.css": "^8.0.0"
+    }
+}
