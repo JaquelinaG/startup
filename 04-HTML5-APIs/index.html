@@ -20,14 +20,16 @@
     <section>
         <div class="container">
             <div class="row clearfix">
-                <textarea id="txtArea"></textarea>
-                <button class="button" onclick="saveLocal(document.getElementById('txtArea').value)">Save</button>                
-                <button class="button" onclick="clearLocal('txtArea')">Clear</button>
-                <button class="button" onclick="saveDb()">Save DB</button>
-                                
+                <textarea id="txtArea"></textarea>                               
                 <article>
                     <span id="textSaved"></span>
                 </article>
+            </div>
+            <div class="row clearfix">
+                <button class="button" onclick="saveLocal(document.getElementById('txtArea').value)">Save Local</button>                
+                <button class="button" onclick="clearLocal('txtArea')">Clear Local</button>
+                <button class="button" onclick="saveDb(document.getElementById('txtArea').value)">Save DB</button>
+                <button class="button" onclick="clearDb('txtArea')">Clear DB</button>
             </div>
         </div>
     </section>

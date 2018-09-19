@@ -14,51 +14,46 @@ const clearLocal = (element) => {
     document.getElementById('textSaved').innerHTML = '';
 }
 
-const saveDb = () => {
+const dbName = 'APIDatabase';
+
+const saveDb = (text) => {
     if (!window.indexedDB) {
         window.alert("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
     }
-    else{
-        const dbName = 'APIDatabase';
-        var request = window.indexedDB.open(dbName);
+    else{        
+        let request = window.indexedDB.open(dbName);
         
-        const customerData = [
-            { ssn: "444-44-4444", name: "Bill", age: 35, email: "bill@company.com" },
-            { ssn: "555-55-5555", name: "Donna", age: 32, email: "donna@home.org" }
-          ];
-
+        const textDB = { key: 'txtArea', content: `${text}`}
+       
         request.onerror = (event) => {console.log(`${request.errorCode}`)};
-        // request.onsuccess = function(event) {
-        //     db = event.target.result;
-        //   };
         
         request.onupgradeneeded = function(event) {
-            var db = event.target.result;
+            let db = event.target.result;
           
             // Create an objectStore to hold information about our customers.
-            var objectStore = db.createObjectStore("customers", { keyPath: "ssn" });
-          
-            // Create an index to search customers by name. We may have duplicates.
-            objectStore.createIndex("name", "name", { unique: false });
-          
-            // Create an index to search customers by email. Unique index.
-            objectStore.createIndex("email", "email", { unique: true });
-          
+            let objectStore = db.createObjectStore("text", { keyPath: "key" });
+
             // Use transaction oncomplete to make sure the objectStore creation is 
             // finished before adding data into it.
             objectStore.transaction.oncomplete = function(event) {
               // Store values in the newly created objectStore.
-              var customerObjectStore = db.transaction("customers", "readwrite").objectStore("customers");
-              customerData.forEach(function(customer) {
-                customerObjectStore.add(customer);
-              });
+              let textObjectStore = db.transaction("text", "readwrite").objectStore("text");
+              textObjectStore.add(textDB);  
             };
-          };
-
-        //Otra forma:
-        // request.onsuccess = function(event){
-        //     let db = event.target.result;
-        // }       
-
+        };          
     }
-} 
+}
+
+const clearDb = (element) => {
+    let request = window.indexedDB.open(dbName);
+       
+    request.onerror = (event) => {console.log(`${request.errorCode}`)};
+        
+    request.onsuccess = function(event){
+        let db = event.target.result;
+        
+        let textObjectDeleted = db.transaction(["text"], "readwrite").objectStore("text").delete("txtArea");
+
+        alert('Text deleted from DB');
+    }    
+}
